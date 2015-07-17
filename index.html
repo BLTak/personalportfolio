@@ -1,1 +1,96 @@
-hello world
+<html>
+
+
+<head>
+	<title>My First Webpage</title>
+	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+	
+	<style>
+
+		body{
+			background-color: #F4FEC1;
+		}
+
+		h1{
+			text-align: center;
+			margin-top: 50px;
+			color: black;
+			font-family: Copperplate, 'Copperplate Gothic Light', fantasy;
+		}
+
+		textarea{
+			display: block;
+			margin-right: auto;
+			margin-left: auto;
+			width: 400px;
+			outline: none;
+			border-radius: 5px;
+			background-color: #F6F5AE;
+			color: black;
+			font-family: 'Lucida Sans Typewriter', 'Lucida Console', monaco, 'Bitstream Vera Sans Mono', monospace;
+			resize: none;
+			text-align: center;
+		}
+
+		button{
+			display: block;
+			margin-right: auto;
+			margin-left: auto;
+			margin-top: 20px;
+			width: 200px;
+			height: 50px;
+			border-radius: 5px;
+			outline: none;
+			background-color: #EAC8CA;
+			color: white;
+			font-family: Papyrus, fantasy;
+		}
+
+
+	</style>
+
+</head>
+
+
+<body>
+	<h1>
+		<span class="glyphicon glyphicon-superscript" aria-hidden="true"></span><span class="glyphicon glyphicon-glass" aria-hidden="true"></span>p<span class="glyphicon glyphicon-gbp" aria-hidden="true"></span>
+		 
+		<span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
+
+		<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span><span class="glyphicon glyphicon-off" aria-hidden="true"></span>mpl<span class="glyphicon glyphicon-italic" aria-hidden="true"></span>m<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>n<span class="glyphicon glyphicon-text-width" aria-hidden="true"></span>
+	</h1>
+	<textarea placeholder = "Type a compliment here..."></textarea>
+	<button>
+		<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+		Send compliment!
+	</button>
+</body>
+
+<script>
+	
+	firebase = new Firebase("https://complimentss.firebaseio.com/");
+
+	firebase.remove();
+
+	firebase.on('child_added', onMessage);
+
+	jQuery('button').click(whenClicked)
+
+	function whenClicked() {
+		var text = jQuery('textarea').val();
+		firebase.push(text);
+		jQuery('textarea').val('I agree');
+	}
+
+	function onMessage(message){
+		jQuery('h1').text(message.val());
+	}
+
+
+</script>
+
+
+</html>
